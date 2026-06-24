@@ -1,58 +1,21 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { cleanText, getStats, type CleanMode, type CleanOptions } from "@/utils/cleanText";
+import { createFileRoute } from '@tanstack/react-router';
+import { useMemo, useState } from 'react';
+import { cleanText, getStats, type CleanOptions, type CleanMode } from '@/utils/cleanText';
+import { useIsMobile } from '@/hooks/use-mobile';
 
-// ===== HOOK: Mobile detection =====
-const MOBILE_BREAKPOINT = 768;
-
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
-
-  useState(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
-    const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    };
-    mql.addEventListener("change", onChange);
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    return () => mql.removeEventListener("change", onChange);
-  },);
-
-  return !!isMobile;
-}
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Text Cleaning Tool" },
-      {
-        name: "description",
-        content:
-          "Clean copied assignment text by removing AI footers, point markers, and instructions while keeping your questions and options.",
-      },
-      { property: "og:title", content: "Text Cleaning Tool" },
-      {
-        property: "og:description",
-        content:
-          "Paste assignment text to strip noise and keep questions and answer options. 100% client-side.",
-      },
-    ],
-    links: [
-      { rel: "icon", href: "/favicon.ico" },
-    ],
-  }),
+export const Route = createFileRoute('/')({
   component: Index,
 });
 
 function Index() {
   const isMobile = useIsMobile();
 
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
   const [options, setOptions] = useState<CleanOptions>({
     removeNoise: true,
     cleanSpaces: true,
-    mode: "balanced",
+    mode: 'balanced',
   });
 
   const inputStats = useMemo(() => getStats(input), [input]);
@@ -60,7 +23,7 @@ function Index() {
 
   const handleClean = () => {
     if (!input.trim()) {
-      alert("Please paste some text first.");
+      alert('Please paste some text first.');
       return;
     }
     setOutput(cleanText(input, options));
@@ -69,94 +32,83 @@ function Index() {
   const handleCopy = async () => {
     if (!output) return;
     await navigator.clipboard.writeText(output);
+    alert('Copied to clipboard!');
   };
 
   const handleReset = () => {
-    setInput("");
-    setOutput("");
+    setInput('');
+    setOutput('');
   };
 
-  const toggle = (key: keyof Omit<CleanOptions, "mode">) =>
+  const toggle = (key: keyof Omit<CleanOptions, 'mode'>) =>
     setOptions((o) => ({ ...o, [key]: !o[key] }));
 
   const setMode = (mode: CleanMode) => setOptions((o) => ({ ...o, mode }));
 
   return (
     <div className="min-h-screen bg-white text-gray-800">
-      <div className="mx-auto max-w-6xl px-3 py-5 sm:px-4 sm:py-6">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">Text Cleaning Tool</h1>
-          <p className="mt-2 text-base text-gray-500">
-            Removes repeated AI footers, point markers, and instructions while keeping your
-            questions and options.
+      <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
+        <header className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">🧹 Text Cleaner</h1>
+          <p className="mt-1 text-gray-500 text-sm">
+            Paste copied text to remove AI footers, point markers, and instructions.
           </p>
         </header>
 
-        {/* ===== GRID: Input & Output side-by-side on desktop ===== */}
-        <div className={`grid gap-4 ${isMobile ? "grid-cols-1" : "grid-cols-2"}`}>
-          {/* ——— INPUT ——— */}
+        <div className={`grid gap-4 ${isMobile ? 'grid-cols-1' : 'grid-cols-2'}`}>
+          {/* Input */}
           <section>
-            <div className="mb-2 flex items-center justify-between">
-              <label htmlFor="input" className="block text-sm font-medium text-gray-700">
-                Input
-              </label>
-              <p className="text-xs text-gray-500">
-                Characters: {inputStats.chars} | Words: {inputStats.words}
-              </p>
+            <div className="mb-1 flex justify-between text-sm">
+              <label htmlFor="input" className="font-medium text-gray-700">Input</label>
+              <span className="text-gray-400">Chars {inputStats.chars} · Words {inputStats.words}</span>
             </div>
             <textarea
               id="input"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Paste your copied assignment here..."
-              className="block w-full resize-y rounded-md border border-gray-300 bg-white p-3 text-sm text-gray-900 placeholder-gray-400 focus:border-[#56aaa4] focus:outline-none focus:ring-1 focus:ring-[#56aaa4]"
-              style={{ minHeight: 200 }}
+              placeholder="Paste your text here..."
+              className="block w-full h-60 rounded-md border border-gray-300 bg-white p-3 text-sm focus:border-[#56aaa4] focus:ring-1 focus:ring-[#56aaa4] outline-none resize-y"
             />
-            {/* ===== CLEAN BUTTON ===== */}
-            <section className="mt-6">
+            <div className="mt-3">
               <button
-                type="button"
                 onClick={handleClean}
-                className="w-full rounded-md px-4 py-2.5 text-sm font-medium text-white hover:bg-[#458a84] sm:w-auto"
-                style={{ backgroundColor: "#56aaa4" }}
+                className="w-full sm:w-auto px-5 py-2.5 bg-[#56aaa4] hover:bg-[#458a84] text-white font-medium rounded-md text-sm transition"
               >
                 Clean Text
               </button>
-            </section>
+            </div>
           </section>
 
-          {/* ——— OUTPUT ——— */}
+          {/* Output */}
           <section>
-            <div className="mb-2 flex items-center justify-between">
-              <label htmlFor="output" className="block text-sm font-medium text-gray-700">
-                Output
-              </label>
-              <p className="text-xs text-gray-500">
-                Cleaned: Characters: {outputStats.chars} | Words: {outputStats.words}
-              </p>
+            <div className="mb-1 flex justify-between text-sm">
+              <label htmlFor="output" className="font-medium text-gray-700">Output</label>
+              <span className="text-gray-400">
+                {output ? `Chars ${outputStats.chars} · Words ${outputStats.words}` : 'Ready'}
+              </span>
             </div>
             <textarea
               id="output"
               value={output}
               readOnly
               placeholder="Cleaned text will appear here..."
-              className="block w-full resize-y rounded-md border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none"
-              style={{ minHeight: 200 }}
+              className="block w-full h-60 rounded-md border border-gray-300 bg-gray-50 p-3 text-sm focus:outline-none resize-y"
             />
-            {/* Output actions: Copy + Reset */}
-            <div className="mt-3 flex flex-wrap items-center gap-3">
+            <div className="mt-3 flex flex-wrap gap-2">
               <button
-                type="button"
                 onClick={handleCopy}
-                className="w-full rounded-md px-4 py-2.5 text-sm font-medium text-white hover:bg-[#458a84] sm:w-auto"
-                style={{ backgroundColor: "#56aaa4" }}
+                disabled={!output}
+                className={`px-4 py-2 rounded-md border text-sm font-medium transition ${
+                  output
+                    ? 'border-[#56aaa4] text-[#56aaa4] hover:bg-[#56aaa4] hover:text-white'
+                    : 'border-gray-200 text-gray-700 cursor-not-allowed'
+                }`}
               >
                 Copy
               </button>
               <button
-                type="button"
                 onClick={handleReset}
-                className="text-sm text-gray-500 hover:text-gray-700"
+                className="text-sm text-gray-500 hover:text-gray-700 underline"
               >
                 ↺ Reset
               </button>
@@ -164,77 +116,56 @@ function Index() {
           </section>
         </div>
 
-        {/* ===== OPTIONS ===== */}
-        <section className="mt-6 rounded-md border border-gray-200 bg-gray-50 p-4">
-          <h2 className="mb-3 text-sm font-semibold text-gray-700">Cleaning Options</h2>
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            <Check
-              label="Remove Noise Blocks"
-              checked={options.removeNoise}
-              onChange={() => toggle("removeNoise")}
-              
-            />
-            <Check
-              label="Clean Extra Spaces"
-              checked={options.cleanSpaces}
-              onChange={() => toggle("cleanSpaces")}
-            />
+        {/* Options */}
+        <section className="mt-6 rounded-md border border-[#56aaa4]/30 bg-gray-50 p-4">
+          <h2 className="mb-2 text-sm font-semibold text-gray-700">Cleaning Options</h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            <label className="flex items-center gap-1.5 text-sm text-gray-700">
+              <input
+                type="checkbox"
+                checked={options.removeNoise}
+                onChange={() => toggle('removeNoise')}
+                className="accent-[#56aaa4] w-4 h-4"
+              />
+              Remove Noise Blocks
+            </label>
+            <label className="flex items-center gap-1.5 text-sm text-gray-700">
+              <input
+                type="checkbox"
+                checked={options.cleanSpaces}
+                onChange={() => toggle('cleanSpaces')}
+                className="accent-[#56aaa4] w-4 h-4"
+              />
+              Clean Extra Spaces
+            </label>
           </div>
-
-          <div className="mt-4 border-t border-gray-200 pt-3">
-            <p className="mb-2 text-sm font-medium text-gray-700">Mode</p>
-            <div className="flex flex-wrap gap-4">
-              {(["safe", "balanced", "aggressive"] as CleanMode[]).map((m) => (
-                <label key={m} className="flex items-center gap-2 text-sm text-gray-700">
+          <div className="mt-3 border-t border-[#56aaa4]/20 pt-3">
+            <p className="text-sm font-medium text-gray-700">Mode</p>
+            <div className="flex flex-wrap gap-4 mt-1">
+              {(['safe', 'balanced', 'aggressive'] as CleanMode[]).map((m) => (
+                <label key={m} className="flex items-center gap-1.5 text-sm text-gray-700">
                   <input
                     type="radio"
                     name="mode"
                     value={m}
                     checked={options.mode === m}
                     onChange={() => setMode(m)}
-                    className="h-4 w-4 text-[#56aaa4] focus:ring-[#56aaa4]"
+                    className="accent-[#56aaa4] w-4 h-4"
                   />
                   <span className="capitalize">{m}</span>
-                  {m === "balanced" && <span className="text-xs text-gray-400">(Recommended)</span>}
+                  {m === 'balanced' && (
+                    <span className="text-xs text-gray-400">(Recommended)</span>
+                  )}
                 </label>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ===== FOOTER ===== */}
-        <footer className="mt-6 border-t border-gray-200 pt-4 text-center text-xs text-gray-400">
-          🔒 100% Client-Side. Crafted with {" "}
-          <a
-            href="https://mohammed-adnan-shakeel.github.io"
-            target="_blank"
-          >
-            ❤️
-          </a>
+        <footer className="mt-8 border-t border-gray-200 pt-4 text-center text-xs text-gray-400">
+          🔒 100% Client‑Side · No data is sent anywhere.
         </footer>
       </div>
     </div>
-  );
-}
-
-function Check({
-  label,
-  checked,
-  onChange,
-}: {
-  label: string;
-  checked: boolean;
-  onChange: () => void;
-}) {
-  return (
-    <label className="flex items-center gap-2 text-sm text-gray-700">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
-        className="h-4 w-4 rounded border-gray-300 text-[#56aaa4] focus:ring-[#56aaa4]"
-      />
-      {label}
-    </label>
   );
 }

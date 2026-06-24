@@ -24,7 +24,6 @@ export function cleanText(input: string, opts: CleanOptions): string {
 
   let text = input.replace(INVISIBLE_REGEX, "");
 
-  // Step 1: Split into blocks, drop noise blocks.
   const blocks = text.split(/\n\s*\n/);
   const removeNoise = opts.removeNoise && opts.mode !== "safe";
   const kept = blocks.filter((b) => {
@@ -35,28 +34,22 @@ export function cleanText(input: string, opts: CleanOptions): string {
 
   text = kept.map((b) => b.replace(/^\n+|\n+$/g, "")).join("\n\n");
 
-  // Step 2: Regex post-processing.
   if (removeNoise) {
-    // Remove "N point(s)" markers anywhere.
     text = text.replace(/\d+\s*points?\s*/gi, "");
   }
 
-  // Merge "1." + newline + "Question 1" → "1. Question 1"
   text = text.replace(/(\d+)\.\s*\n\s*Question\s+\1/gi, "$1. Question $1");
 
   if (opts.cleanSpaces) {
     text = text.replace(/[ \t]+/g, " ");
   }
 
-  // Strip stray trailing "text" line that often appears at end of pastes.
   if (removeNoise) {
     text = text.replace(/\n\s*text\s*$/i, "");
   }
 
-  // Collapse 3+ newlines into exactly 2.
   text = text.replace(/\n{3,}/g, "\n\n");
 
-  // Trim spaces on each line edge.
   text = text
     .split("\n")
     .map((l) => l.replace(/[ \t]+$/g, "").replace(/^[ \t]+/g, ""))
