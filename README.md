@@ -8,9 +8,7 @@ Paste → Clean → Copy
 
 Website: https://texclean.vercel.app/
 
-Hosted on Vercel. {"fallbackMarkdown":"(Texclean
-)","reference":{"matched_text":"","prefix":null,"start_idx":440,"end_idx":457,"safe_urls":["https://texclean.vercel.app/"],"refs":[],"alt":"(Texclean
-)","prompt_text":null,"type":"grouped_webpages","fallback_items":null,"style":null,"items":[{"title":"Text Cleaner","url":"https://texclean.vercel.app/","attribution":"Texclean","pub_date":null,"snippet":null,"attribution_segments":null,"supporting_websites":[],"refs":[{"turn_index":0,"ref_type":"view","ref_index":0}],"hue":null,"attributions":null}],"error":null,"status":"done"},"showLoginRequiredCard":false}
+Hosted on Vercel.
 
 📖 About
 
@@ -144,4 +142,3 @@ The MIT License permits use, modification, distribution, and reuse of the softwa
 Created as a personal productivity and web-development project.
 
 Author: MOHAMMED ADNAN SHAKEEL
-:::{"fallbackMarkdown":"","reference":{"matched_text":" ","prefix":null,"start_idx":4174,"end_idx":4174,"safe_urls":[],"refs":[],"alt":"","prompt_text":null,"type":"sources_footnote","sources":[{"title":"Text Cleaner","url":"https://texclean.vercel.app/","attribution":"Texclean"}],"has_images":false},"showLoginRequiredCard":false}
