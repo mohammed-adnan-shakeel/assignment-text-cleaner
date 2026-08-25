@@ -7,7 +7,7 @@ A lightweight text cleaning and privacy focused web tool for cleaning copied tex
 **Website: [texclean.vercel.app](https://texclean.vercel.app/)**
 
 <p align="center">
-  <img src="./public/screenshots/text-cleaner.png" alt="Text Cleaner Interface" width="900">
+  <img src="./public/text-cleaner.png" alt="Text Cleaner Interface" width="900">
 </p>
 
 ## 📖 About
