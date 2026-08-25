@@ -1,144 +1,102 @@
-## Text Cleaner
+# Text Cleaner
 
-A lightweight, privacy-focused web tool for cleaning copied text by removing unwanted noise, invisible characters, formatting artifacts, and unnecessary content.
+A lightweight text cleaning and privacy focused web tool for cleaning copied text by removing unwanted noise, invisible characters, formatting artifacts, and unnecessary content.
 
-Paste → Clean → Copy
+## 🌐 Live Demo
 
-🌐 Live Demo
+**Website: [texclean.vercel.app](https://texclean.vercel.app/)**
 
-Website: https://texclean.vercel.app/
+<p align="center">
+  <img src="./public/screenshots/text-cleaner.png" alt="Text Cleaner Interface" width="900">
+</p>
 
-Hosted on Vercel.
-
-📖 About
-
-Text Cleaner is a personal productivity project created to automate repetitive text-cleaning tasks.
-
-Copied text can sometimes contain unwanted headers, invisible Unicode characters, excessive spacing, assessment-related artifacts, and inconsistent formatting. Text Cleaner provides a simple way to clean this content without manually editing it.
-
-The core workflow is:
-
-Paste Text → Select Mode → Clean → Copy Result
-
-🎯 Aim
-
-To provide a simple and efficient way to clean copied text while keeping the processing private and local to the user's device.
-
-🎯 Objectives
-Automate repetitive text-cleaning tasks.
-Remove unwanted text noise and artifacts.
-Remove selected invisible Unicode characters.
-Normalize unnecessary spacing and formatting.
-Provide multiple levels of cleaning.
-Process user text entirely on the client side.
-Provide a simple, fast, browser-based interface.
-✨ Features
-
-Three Cleaning Modes
-
-Safe — conservative cleaning.
-Balanced — removes common unwanted content.
-Aggressive — performs more extensive cleaning.
-
-Noise Removal
-Removes configured unwanted text patterns and common artifacts.
-
-Invisible Character Removal
-Removes selected zero-width and invisible Unicode characters.
-
-Space Cleanup
-Normalizes repeated spaces and tabs.
-
-Formatting Cleanup
-Removes unnecessary blank lines, leading/trailing whitespace, and selected formatting inconsistencies.
-
-Text Statistics
-Displays character and word counts.
-
-Client-Side Processing
-Text is processed directly in the browser without requiring a text-processing backend.
-
-🔒 Privacy
-
-Privacy is a core design principle of Text Cleaner.
-
-Your pasted text is processed locally using client-side JavaScript/TypeScript. The application's core cleaning functionality does not require uploading your text to a remote processing server.
-
-Your Text
-   ↓
-Your Browser
-   ↓
-Local Processing
-   ↓
-Cleaned Text
+## 📖 About
 
 
-The application does not require server-side storage for the text-cleaning process.
+>* The Text Cleaner is a personal productivity tool created to automate repetitive text cleaning tasks.
+>
+>* Copied text form assignments can sometimes contain unwanted headers, invisible Unicode characters, excessive spacing, assessment-related artifacts, and inconsistent formatting. Text Cleaner provides a simple way to clean this content without manually editing it.
 
-Note: Third-party services such as hosting, analytics, or browser extensions may have their own data-handling policies. The statement above applies to the application's core text-processing logic.
+**The core workflow is:**
+```mermaid
+graph LR
+A[Paste] --> B[Clean] --> C[Copy]
+```
 
-🧠 Cleaning Process
+## 🎯 Aim
 
-The cleaning pipeline performs operations such as:
+>To provide a simple and efficient way to clean copied text while keeping the processing private and local to the user's device.
 
-Input
- ↓
-Remove invisible characters
- ↓
-Identify unwanted content
- ↓
-Remove configured noise
- ↓
-Normalize spaces
- ↓
-Normalize formatting
- ↓
-Remove excessive blank lines
- ↓
-Trim whitespace
- ↓
-Cleaned Output
+## 🎯 Objectives
+>* Automate repetitive text-cleaning tasks.
+>* Remove unwanted text noise and artifacts.
+>* Remove selected invisible Unicode characters.
+>* Normalize unnecessary spacing and formatting.
+>* Provide multiple levels of cleaning.
+>* Process user text entirely on the client side.
+>* Provide a simple, fast, browser-based interface.
 
-🛠️ Technology
-TypeScript
-Web-based frontend
-Client-side text processing
-Vercel
-Vite.
+## ✨ Features
 
-🚀 Run Locally
-git clone https://github.com/mohammed-adnan-shakeel/assignment-text-cleaner.git
-cd assignment-text-cleaner
-npm install
-npm run dev
+**Three Cleaning Modes**
+
+* **Safe** — conservative cleaning.<br>
+* **Balanced** — removes common unwanted content.<br>
+* **Aggressive** — performs more extensive cleaning.
+
+## 🚀 Run the Project Locally
+>Follow these steps in order.
+>
+>1. Clone the repository<br>
+Open your terminal and run:<br>
+*[git clone https://github.com/mohammed-adnan-shakeel/assignment-text-cleaner.git](https://github.com/mohammed-adnan-shakeel/assignment-text-cleaner.git)*
+
+>2. Go into the project folder<br>
+*cd assignment-text-cleaner*
+
+>3. Install the dependencies<br>
+*npm install*
+
+This downloads and installs all the packages required by the project.
+
+>4. Start the development server<br>
+*npm run dev*
+
+After running this command, the terminal should display a local URL, usually something like:
+
+http://localhost:3000
+
+Open that URL in your browser to view the application.
+
+
+
+##### ⚠️ Prerequisites
+Make sure you have Git and Node.js/npm installed before starting.
+
+>Check Git:<br>
+*git --version*
+>
+>Check Node.js:<br>
+*node --version*
+>
+>Check npm:<br>
+*npm --version*
 
 
 Open the local development URL shown by the development server.
 
-🗺️ Roadmap
- Custom cleaning rules
- User-defined cleaning presets
- Download cleaned text
- Drag-and-drop file support
- Improved mobile experience
- Additional text statistics
- More formatting options
-📌 Project Status
+*The project may receive improvements and additional cleaning capabilities over time.*
 
-Live and maintained for personal use.
-
-The project may receive improvements and additional cleaning capabilities over time.
-
-📄 License
+## 📄 License
 
 This project is licensed under the MIT License.
 
-See the LICENSE file for the complete license text.
+See the [LICENSE](https://github.com/mohammed-adnan-shakeel/assignment-text-cleaner/blob/main/LICENSE) file for the complete license text.
 
 The MIT License permits use, modification, distribution, and reuse of the software, subject to its conditions.
 
-👤 Author
+## 👤 Author
 
-Created as a personal productivity and web-development project.
+Author: [**MOHAMMED ADNAN SHAKEEL**](https://mohammed-adnan-shakeel.github.io/)
 
-Author: MOHAMMED ADNAN SHAKEEL
+*Created as a personal productivity and web-development project.*
