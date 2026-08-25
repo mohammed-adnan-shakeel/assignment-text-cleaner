@@ -49,7 +49,7 @@ function Index() {
     <div className="min-h-screen bg-white text-gray-800">
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8">
         <header className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">🧹 Text Cleaner</h1>
+          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">Assignment Text Cleaner</h1>
           <p className="mt-1 text-gray-500 text-sm">
             Paste copied text to remove AI footers, point markers, and instructions.
           </p>
